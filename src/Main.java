@@ -1,12 +1,30 @@
+import java.util.Scanner;
+
 public class Main {
    public static void main(String[] args) {
-      Tree<Integer> tree = new Tree<>();
-      for (int i : new Integer[]{3,1,4,1,5,9,2,6,5,3,5,12,44,0,11}) {
-         tree.insert(i);
-      }
-//      tree.delete(6);
+      Scanner scanner = new Scanner(System.in);
+      System.out.println("Podaj typ drzewa " + Parser.getOptions());
+      ConsoleHandler handler = new ConsoleHandler(scanner.nextLine());
 
+      System.out.println("Utworzono drzewo");
+      System.out.println("Podaj komendę " + handler.getCommands());
+      while (!handler.terminated){
+         handler.handle(scanner.nextLine());
+      }
+
+
+
+//      for (String i : new String[]{"pies","kot","żaba","żółw","wiewiórka","jeleń","wieloryb","małpa","rekin"}) {
+//         tree.insert(parser.parse(i));
+//      }
+//      for (int i : new Integer[]{7,3,6,2,9,5,1,4,8}) {
+//         tree.insert(parser.parse(String.valueOf(i)));
+//      }
 //      System.out.println(tree.root.left.key);
-      tree.draw();
+//      tree.draw();
+//      tree.delete(parser.parse("1"));
+//      tree.drawLeaves();
+//      System.out.println(parser.parse("12").getClass());
+
    }
 }
