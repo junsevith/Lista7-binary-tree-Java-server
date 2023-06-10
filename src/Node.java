@@ -36,11 +36,11 @@ public class Node<T extends Comparable<T>> {
             return diagram + message + "\n";
         } else {
             String temp = diagram;
-            if (left != null) {
-                temp += left.drawLine(message + "⭧ ", diagram);
-            }
             if (right != null) {
-                temp += right.drawLine(message + "⭨ ", diagram);
+                temp += right.drawLine(message + "⭧ ", diagram);
+            }
+            if (left != null) {
+                temp += left.drawLine(message + "⭨ ", diagram);
             }
             return temp;
         }

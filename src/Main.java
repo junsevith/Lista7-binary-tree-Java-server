@@ -13,7 +13,7 @@ public class Main {
 
       System.out.println("Podaj komendę " + handler.getCommands());
       while (!handler.terminated){
-         System.out.print(">>");
+         System.out.print(">> ");
          System.out.println(handler.handle(scanner.nextLine()).replace("\0","\n"));
       }
 
