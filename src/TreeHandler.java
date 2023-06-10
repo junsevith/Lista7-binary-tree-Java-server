@@ -18,7 +18,7 @@ public class TreeHandler extends Thread {
 
             ConsoleHandler handler = new ConsoleHandler();
             if (in.readLine().equals("start")) {
-                System.out.println("Connected " + clientSocket.toString());
+                System.out.println("Connected " + clientSocket);
 
                 out.println("Podaj typ drzewa " + handler.getParsers());
                 while (!handler.setParser(in.readLine())) {
@@ -30,7 +30,7 @@ public class TreeHandler extends Thread {
                     out.println(handler.handle(in.readLine()) + "\0>>");
                 }
             }
-            System.out.println("Disconnected " + clientSocket.toString());
+            System.out.println("Disconnected " + clientSocket);
             in.close();
             out.close();
             clientSocket.close();

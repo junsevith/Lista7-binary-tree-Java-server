@@ -17,17 +17,17 @@ public class Node<T extends Comparable<T>> {
                 left = new Node<>(t, this);
                 return "Dodano element: " + t;
             } else {
-                left.insert(t);
+                return left.insert(t);
             }
-        } else if (t.compareTo(key) > 0) {
+        } else {
             if (right == null) {
                 right = new Node<>(t, this);
                 return "Dodano element: " + t;
             } else {
-                right.insert(t);
+                return right.insert(t);
             }
         }
-        return null;
+
     }
 
     public String drawLine(String line, String diagram) {
