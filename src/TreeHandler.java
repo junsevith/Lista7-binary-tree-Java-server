@@ -27,9 +27,10 @@ public class TreeHandler extends Thread {
 
                 out.println("Utworzono drzewo\0Podaj komendę " + handler.getCommands() + "\0>> ");
                 while (!handler.terminated) {
-                    out.println(handler.handle(in.readLine()) + "\0>>");
+                    out.println(handler.handle(in.readLine()).replace('\n','\0') + "\0>>");
                 }
             }
+
             System.out.println("Disconnected " + clientSocket);
             in.close();
             out.close();

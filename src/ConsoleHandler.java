@@ -11,7 +11,7 @@ public class ConsoleHandler {
     public ConsoleHandler() {
         commands.put("insert", p -> tree.insert(parser.parse(p)));
         commands.put("search", p -> tree.search(parser.parse(p)) != null ? "Znaleziono element o podanym kluczu" : "Nie znaleziono elementu");
-        commands.put("draw", p -> tree.draw().replace('\n', '\0'));
+        commands.put("draw", p -> tree.draw());
         commands.put("remove", p -> tree.delete(parser.parse(p)));
         commands.put("exit", p -> {
             terminated = true;
