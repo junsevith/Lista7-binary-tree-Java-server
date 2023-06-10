@@ -30,6 +30,22 @@ public class Node<T extends Comparable<T>> {
         return null;
     }
 
+    public String drawLine(String line, String diagram) {
+        String message = line + key + " ";
+        if (left == null && right == null) {
+            return diagram + message + "\n";
+        } else {
+            String temp = diagram;
+            if (left != null) {
+                temp += left.drawLine(message + "⭧ ", diagram);
+            }
+            if (right != null) {
+                temp += right.drawLine(message + "⭨ ", diagram);
+            }
+            return temp;
+        }
+    }
+
     public void delete() {
         Node<T> node = null;
         if (left != null && right != null) {
@@ -105,21 +121,4 @@ public class Node<T extends Comparable<T>> {
             return nextChild();
         }
     }
-
-    public String drawLine(String line, String diagram) {
-        String message = line + key + " ";
-        if (left == null && right == null) {
-            return diagram + message + "\n";
-        } else {
-            String temp = diagram;
-            if (left != null) {
-                temp += left.drawLine(message + "⭧ ", diagram);
-            }
-            if (right != null){
-                temp += right.drawLine(message + "⭨ ", diagram);
-            }
-            return temp;
-        }
-    }
-
 }

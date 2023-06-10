@@ -4,6 +4,15 @@ public class Tree<T extends Comparable<T>> {
     public Tree() {
     }
 
+    public String insert(T t) {
+        if (root == null) {
+            root = new Node<>(t, null);
+            return "Utworzono element root: " + t;
+        } else {
+            return root.insert(t);
+        }
+    }
+
     public Node<T> search(T t) {
         Node<T> node = root;
         while (node != null && !node.key.equals(t)) {
@@ -16,13 +25,8 @@ public class Tree<T extends Comparable<T>> {
         return node;
     }
 
-    public String insert(T t) {
-        if (root == null) {
-            root = new Node<>(t, null);
-            return "Utworzono element root: "+ t;
-        } else {
-            return root.insert(t);
-        }
+    public String draw() {
+        return root.drawLine("", "");
     }
 
     public String delete(T t) {
@@ -46,9 +50,6 @@ public class Tree<T extends Comparable<T>> {
         }
     }
 
-    public String draw() {
-        return root.drawLine("", "");
-    }
 
     private Node<T> nextRow(Node<T> node) {
         Node<T> temp = node;
