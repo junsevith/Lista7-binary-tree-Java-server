@@ -1,6 +1,4 @@
-import java.io.InputStream;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.function.Function;
 
 public class ConsoleHandler {
