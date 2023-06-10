@@ -3,38 +3,38 @@ public class Tree<T extends Comparable<T>> {
 
     public Tree() {
     }
-    public Node<T> search(T t) {
-        if (root != null) {
-            Node<T> node = root;
-            while (node != null && node.key != t) {
-                if (t.compareTo(node.key) < 0) {
-                    node = node.left;
-                } else if (t.compareTo(node.key) > 0) {
-                    node = node.right;
-                }
-            }
-            return node;
-        } else {
-            return null;
-        }
 
+    public Node<T> search(T t) {
+        Node<T> node = root;
+        while (node != null && !node.key.equals(t)) {
+            if (t.compareTo(node.key) < 0) {
+                node = node.left;
+            } else if (t.compareTo(node.key) > 0) {
+                node = node.right;
+            }
+        }
+        return node;
     }
 
-    public void insert(T t) {
-//        System.out.println(t.getClass());
+    public String insert(T t) {
         if (root == null) {
             root = new Node<>(t, null);
+            return "Utworzono element root: "+ t;
         } else {
-            root.insert(t);
+            return root.insert(t);
         }
     }
 
-    public void delete(T t) {
-        search(t).delete();
-
+    public String delete(T t) {
+        Node<T> node = search(t);
+        if (node != null) {
+            node.delete();
+            return "Usunięto: " + t;
+        }
+        return "Nie znaleziono węzła o podanym kluczu: " + t;
     }
 
-    public void draw() {
+    public void oldDraw() {
         Node<T> row = root;
         while (row != null) {
             Node<T> temp = row;
@@ -43,13 +43,11 @@ public class Tree<T extends Comparable<T>> {
                 temp = temp.nextNode();
             }
             row = nextRow(row);
-            System.out.println();
         }
     }
 
-    public void drawLeaves() {
-        root.drawLine("");
-        System.out.println();
+    public String draw() {
+        return root.drawLine("", "");
     }
 
     private Node<T> nextRow(Node<T> node) {

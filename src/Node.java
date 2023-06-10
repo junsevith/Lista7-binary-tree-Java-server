@@ -9,24 +9,25 @@ public class Node<T extends Comparable<T>> {
         this.parent = parent;
     }
 
-    public <E extends T> void insert(E t) {
+    public <E extends T> String insert(E t) {
         if (t.compareTo(key) == 0) {
-            System.out.println("Próba dodania elementu który już znajduje się w tablicy, nie dodano: " + t);
+            return "Próba dodania elementu który już znajduje się w tablicy, nie dodano: " + t;
         } else if (t.compareTo(key) < 0) {
             if (left == null) {
                 left = new Node<>(t, this);
-//            System.out.println("Dodano: " + t);
+                return "Dodano element: " + t;
             } else {
                 left.insert(t);
             }
         } else if (t.compareTo(key) > 0) {
             if (right == null) {
                 right = new Node<>(t, this);
-//            System.out.println("Dodano: " + t);
+                return "Dodano element: " + t;
             } else {
                 right.insert(t);
             }
         }
+        return null;
     }
 
     public void delete() {
@@ -70,7 +71,7 @@ public class Node<T extends Comparable<T>> {
     }
 
     /**
-     * Zwraca następny na prawo w aktualnym rzędzie element node, lub null gdy nie istnieje
+     * Zwraca następny na prawo w aktualnym rzędzie element node lub null, gdy nie istnieje
      *
      * @return node
      */
@@ -105,17 +106,19 @@ public class Node<T extends Comparable<T>> {
         }
     }
 
-    public void drawLine(String line) {
+    public String drawLine(String line, String diagram) {
         String message = line + key + " ";
         if (left == null && right == null) {
-            System.out.println(message);
+            return diagram + message + "\n";
         } else {
+            String temp = diagram;
             if (left != null) {
-                left.drawLine(message + "⭧ ");
+                temp += left.drawLine(message + "⭧ ", diagram);
             }
             if (right != null){
-                right.drawLine(message + "⭨ ");
+                temp += right.drawLine(message + "⭨ ", diagram);
             }
+            return temp;
         }
     }
 
