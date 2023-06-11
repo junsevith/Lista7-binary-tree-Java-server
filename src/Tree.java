@@ -6,7 +6,9 @@ public class Tree<T extends Comparable<T>> {
 
     public String insert(T t) {
         if (root == null) {
-            root = new Node<>(t, null);
+            Node<T> anchor = new Node<>(null, null);
+            root = new Node<>(t, anchor);
+            anchor.right = root;
             return "Utworzono element root: " + t;
         } else {
             return root.insert(t);
@@ -26,13 +28,34 @@ public class Tree<T extends Comparable<T>> {
     }
 
     public String draw() {
-        return root.drawLine("", "");
+        if (root != null){
+            return root.drawLine("", "");
+        } else {
+            return "Drzewo nie posiada elementów";
+        }
+
     }
 
     public String delete(T t) {
         Node<T> node = search(t);
+
         if (node != null) {
             node.delete();
+            if (node == root) {
+                try {
+                    System.out.println(root.parent.left.key);
+                } catch (Exception e){
+                    System.out.println("null");
+                }
+                try{
+                    System.out.println(root.parent.right.key);
+                } catch (Exception e){
+                    System.out.println("null");
+                }
+
+
+                root = root.parent.left != null ? root.parent.left : root.parent.right;
+            }
             return "Usunięto: " + t;
         }
         return "Nie znaleziono węzła o podanym kluczu: " + t;

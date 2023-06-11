@@ -49,7 +49,10 @@ public class Node<T extends Comparable<T>> {
     public void delete() {
         Node<T> node = null;
         if (left != null && right != null) {
-            node = this.minVal();
+            node = this.right;
+            while (node.left != null) {
+                node = node.left;
+            }
         } else if (left != null || right != null) {
             node = left == null ? right : left;
         }
@@ -64,7 +67,9 @@ public class Node<T extends Comparable<T>> {
             parent.right = node;
         }
 
+
         if (node != null) {
+            node.delete();
             node.parent = parent;
             node.right = node != right ? right : null;
             node.left = node != left ? left : null;
@@ -79,7 +84,6 @@ public class Node<T extends Comparable<T>> {
 
     private Node<T> minVal() {
         if (this.left == null) {
-            this.replace(null);
             return this;
         } else {
             return this.left.minVal();

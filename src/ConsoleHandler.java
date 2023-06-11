@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.function.Function;
 
@@ -27,12 +28,17 @@ public class ConsoleHandler {
 
 
     public String handle(String command) {
-        command += " null";
         String[] args = command.split(" ");
+        if (args.length < 2) {
+            args = (command + " null").split(" ");
+        }
         Function<String, String> function = commands.get(args[0]);
         if (function != null) {
             try {
-                return function.apply(args[1]);
+                StringBuilder msg = new StringBuilder();
+                Arrays.stream(args).skip(1).forEach(p -> msg.append(function.apply(p)).append("\n"));
+//                return function.apply(args[1]);
+                return msg.toString().strip();
             } catch (Exception e) {
                 return e.getMessage();
             }
@@ -45,7 +51,8 @@ public class ConsoleHandler {
     public String getCommands() {
         return commands.keySet().toString();
     }
-    public String getParsers(){
+
+    public String getParsers() {
         return parser.getOptions();
     }
 }
