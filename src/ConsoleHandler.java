@@ -14,6 +14,7 @@ public class ConsoleHandler {
         commands.put("search", p -> tree.search(parser.parse(p)) != null ? "Znaleziono element o podanym kluczu" : "Nie znaleziono elementu");
         commands.put("draw", p -> tree.draw());
         commands.put("remove", p -> tree.delete(parser.parse(p)));
+        commands.put("help", p -> getCommands());
         commands.put("exit", p -> {
             terminated = true;
             return "Wychodzenie...";
