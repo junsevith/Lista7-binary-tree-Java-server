@@ -4,8 +4,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 public class TreeHandler extends Thread {
     private final Socket clientSocket;
-    private PrintWriter out;
-    private BufferedReader in;
 
     public TreeHandler(Socket socket) {
         this.clientSocket = socket;
@@ -13,8 +11,8 @@ public class TreeHandler extends Thread {
 
     public void run() {
         try {
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
             ConsoleHandler handler = new ConsoleHandler();
             if (in.readLine().equals("start")) {

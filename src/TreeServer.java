@@ -1,15 +1,17 @@
-import java.net.*;
-import java.io.*;
+import java.net.ServerSocket;
 
 public class TreeServer {
-    private ServerSocket serverSocket;
 
-    public void start(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
-        while (true) new TreeHandler(serverSocket.accept()).start();
+    public void start(int port) {
+        try (ServerSocket serverSocket = new ServerSocket(port)){
+            while (true) new TreeHandler(serverSocket.accept()).start();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         TreeServer server = new TreeServer();
         server.start(6666);
     }
