@@ -29,6 +29,9 @@ public class ConsoleHandler {
 
 
    public String handle(String command) {
+      if (command == null){
+         return "Brak komendy";
+      }
       String[] args = command.split(" ");
       if (args.length < 2) {
          args = (command + " null").split(" ");
