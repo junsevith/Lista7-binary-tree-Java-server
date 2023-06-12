@@ -28,4 +28,8 @@ public class Parser {
     public String getOptions() {
         return converterMap.keySet().toString();
     }
+
+    public String getType(){
+        return parse("0").getClass().getName();
+    }
 }

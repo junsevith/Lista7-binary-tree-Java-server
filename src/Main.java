@@ -9,7 +9,7 @@ public class Main {
       while (!handler.setParser(scanner.nextLine())){
          System.out.println("Niepoprawny typ drzewa");
       }
-      System.out.println("Utworzono drzewo");
+      System.out.println("Utworzono drzewo typu " + handler.getType());
 
       System.out.println("Podaj komendę " + handler.getCommands());
       while (!handler.terminated){

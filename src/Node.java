@@ -82,14 +82,6 @@ public class Node<T extends Comparable<T>> {
         }
     }
 
-    private Node<T> minVal() {
-        if (this.left == null) {
-            return this;
-        } else {
-            return this.left.minVal();
-        }
-    }
-
     /**
      * Zwraca następny na prawo w aktualnym rzędzie element node lub null, gdy nie istnieje
      *

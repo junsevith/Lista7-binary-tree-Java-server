@@ -23,9 +23,9 @@ public class TreeHandler extends Thread {
                     out.println("Niepoprawny typ drzewa");
                 }
 
-                out.println("Utworzono drzewo\0Podaj komendę " + handler.getCommands() + "\0>> ");
+                out.println("Utworzono drzewo typu " + handler.getType() + "\0Podaj komendę " + handler.getCommands() + "\0>> ");
                 while (!handler.terminated) {
-                    out.println(handler.handle(in.readLine()).replace('\n','\0') + "\0>>");
+                    out.println(handler.handle(in.readLine()).replace('\n','\0') + "\0>> ");
                 }
             }
 
