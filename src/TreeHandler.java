@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.LinkedHashMap;
+import java.util.function.Function;
+
 public class TreeHandler extends Thread {
     private final Socket clientSocket;
 
@@ -14,19 +17,21 @@ public class TreeHandler extends Thread {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            ConsoleHandler handler = new ConsoleHandler();
+            LinkedHashMap<String,Runnable> treeTypes = new LinkedHashMap<>();
+            treeTypes.put("integer",()-> new ConsoleHandler<>(Integer::parseInt).runServer(clientSocket));
+            treeTypes.put("double",()-> new ConsoleHandler<>(Double::parseDouble).runServer(clientSocket));
+            treeTypes.put("string",()-> new ConsoleHandler<>(Function.identity()).runServer(clientSocket));
+
             if (in.readLine().equals("start")) {
                 System.out.println("Connected " + clientSocket);
 
-                out.println("Podaj typ drzewa " + handler.getParsers());
-                while (!handler.setParser(in.readLine())) {
+                out.println("Podaj typ drzewa " + treeTypes.keySet());
+                Runnable handler;
+                while ((handler = treeTypes.get(in.readLine())) == null){
                     out.println("Niepoprawny typ drzewa");
                 }
+                handler.run();
 
-                out.println("Utworzono drzewo typu " + handler.getType() + "\0Podaj komendę " + handler.getCommands() + "\0>> ");
-                while (!handler.terminated) {
-                    out.println(handler.handle(in.readLine()).replace('\n','\0') + "\0>> ");
-                }
             }
 
             System.out.println("Disconnected " + clientSocket);

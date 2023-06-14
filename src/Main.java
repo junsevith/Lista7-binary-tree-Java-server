@@ -1,22 +1,22 @@
+import java.util.LinkedHashMap;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Main {
    public static void main(String[] args) {
-      Scanner scanner = new Scanner(System.in);
-      ConsoleHandler handler = new ConsoleHandler();
+      LinkedHashMap<String,Runnable> treeTypes = new LinkedHashMap<>();
+      treeTypes.put("integer",()-> new ConsoleHandler<>(Integer::parseInt).runTerminal());
+      treeTypes.put("double",()-> new ConsoleHandler<>(Double::parseDouble).runTerminal());
+      treeTypes.put("string",()-> new ConsoleHandler<>(Function.identity()).runTerminal());
 
-      System.out.println("Podaj typ drzewa " + handler.getParsers());
-      while (!handler.setParser(scanner.nextLine())){
+      System.out.println("Podaj typ drzewa " + treeTypes.keySet());
+      Scanner scanner = new Scanner(System.in);
+      Runnable handler;
+      while ((handler = treeTypes.get(scanner.nextLine())) == null){
          System.out.println("Niepoprawny typ drzewa");
       }
-      System.out.println("Utworzono drzewo typu " + handler.getType());
-
-      System.out.println("Podaj komendę " + handler.getCommands());
-      while (!handler.terminated){
-         System.out.print(">> ");
-         System.out.println(handler.handle(scanner.nextLine()));
-      }
-
+      System.out.println("Utworzono drzewo");
+      handler.run();
 
 //      for (String i : new String[]{"pies","kot","żaba","żółw","wiewiórka","jeleń","wieloryb","małpa","rekin"}) {
 //         tree.insert(parser.parse(i));

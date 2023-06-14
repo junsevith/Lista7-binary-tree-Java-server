@@ -4,6 +4,11 @@ public class Tree<T extends Comparable<T>> {
     public Tree() {
     }
 
+    /**
+     * Dodaje element do drzewa
+     * @param t klucz dodawanego elementu
+     * @return informacja o tym, czy dodawanie się powiodło
+     */
     public String insert(T t) {
         if (root == null) {
             Node<T> anchor = new Node<>(null, null);
@@ -15,6 +20,11 @@ public class Tree<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * Przeszukuje drzewo, szukając elementu o kluczu t
+     * @param t klucz szukanego elementu
+     * @return element o podanym kluczu lub null, gdy nie istnieje
+     */
     public Node<T> search(T t) {
         Node<T> node = root;
         while (node != null && !node.key.equals(t)) {
@@ -27,6 +37,10 @@ public class Tree<T extends Comparable<T>> {
         return node;
     }
 
+    /**
+     * Rysuje drzewo
+     * @return narysowane drzewo
+     */
     public String draw() {
         if (root != null){
             return root.drawLine("", "");
